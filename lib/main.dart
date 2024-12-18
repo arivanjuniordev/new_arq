@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     dio = Dio();
     cepService = CepService(htppClient: dio);
     cepRepositoryRemote = CepRepositoryRemote(cepService: cepService);
-    homeViewModel = HomeViewModel(cepRepositoryRemote: cepRepositoryRemote);
+    homeViewModel = HomeViewModel(cepRepositoryRemote);
   }
 
   @override
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   if (homeViewModel.getCep.running)
                     const CircularProgressIndicator(),
-                  if (homeViewModel.cepEntity != null)
+                  if (homeViewModel.getCep.colorScheme != null)
                     Column(
                       children: [
                         Text(homeViewModel.cepEntity!.cep),
@@ -82,7 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             );
-          }),
+          },
+        ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await homeViewModel.getCep.execute(_controller.text);

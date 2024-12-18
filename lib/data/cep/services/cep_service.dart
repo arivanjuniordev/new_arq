@@ -11,9 +11,15 @@ class CepService {
 
   Future<CepEntity> getCep(String cep) async {
     await Future.delayed(const Duration(seconds: 2));
-    final response =
-        await htppClient.get('https://viacep.com.br/ws/$cep/json/');
-    final data = Cepadapter.fromJson(response.data);
-    return data;
+    try{ 
+      final response =
+          await htppClient.get('https://viacep.com.br/ws/$cep/json/');
+      
+      final data = Cepadapter.fromJson(response.data);
+
+      return Result.ok(data);
+    } catch(e) {
+      return Result.error(data);
+    }
   }
 }

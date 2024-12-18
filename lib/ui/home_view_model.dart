@@ -8,30 +8,27 @@ import 'package:new_arq/domain/cep/entity/cep_entity.dart';
 class HomeViewModel extends ChangeNotifier {
   final CepRepositoryRemote _cepRepositoryRemote;
 
-  HomeViewModel({
-    required CepRepositoryRemote cepRepositoryRemote,
-  }) : _cepRepositoryRemote = cepRepositoryRemote {
+  HomeViewModel(this._cepRepositoryRemote) {
     getCep = Command1<void, String>(_getCep);
   }
+  
   late Command1<void, String> getCep;
 
-  CepEntity? _cepEntity;
-  CepEntity? get cepEntity => _cepEntity;
+  Address? _cepEntity;
+  Address? get cepEntity => _cepEntity;
 
   Future<Result> _getCep(String cep) async {
-    try {
-      final result = await _cepRepositoryRemote.getGet(CepDto(cep: cep));
-      switch (result) {
-        case Ok<CepEntity>():
-          _cepEntity = result.value;
+    final result = await _cepRepositoryRemote.getGet(Cep(cep: cep));
 
-        case Error<CepEntity>():
-          print('Error');
-      }
+    switch (result) {
+      case Ok<CepEntity>():
+        _cepEntity = result.value;
 
-      return result;
-    } finally {
-      notifyListeners();
+      case Error<CepEntity>():
+        print('Error');
     }
+
+    notifyListeners();
+    return result;
   }
 }

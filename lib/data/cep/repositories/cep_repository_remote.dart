@@ -13,12 +13,11 @@ class CepRepositoryRemote implements CepRepository {
   });
 
   @override
-  Future<Result<CepEntity>> getGet(CepDto dto) async {
-    try {
-      final result = await cepService.getCep(dto.cep);
-      return Result.ok(result);
-    } catch (e) {
-      return Result.error(Exception('Erro ao buscar o CEP'));
+  Future<Result<Address>> getGet(Cep dto) async {
+    if (!dto.valid()) {
+      Result.error(Exception());
     }
+
+    return cepService.getCep(dto.cep);
   }
 }

@@ -1,4 +1,4 @@
-class CepEntity {
+class Address {
   final String cep;
   final String logradouro;
   final String complemento;
@@ -13,7 +13,7 @@ class CepEntity {
   final String ddd;
   final String siafi;
 
-  const CepEntity({
+  const Address({
     required this.cep,
     required this.logradouro,
     required this.complemento,

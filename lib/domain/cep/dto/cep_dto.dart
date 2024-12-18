@@ -1,14 +1,14 @@
-class CepDto {
+class Cep {
   final String cep;
 
-  const CepDto({
+  const Cep({
     required this.cep,
   });
 
-  CepDto copyWith({
+  Cep copyWith({
     String? cep,
   }) {
-    return CepDto(
+    return Cep(
       cep: cep ?? this.cep,
     );
   }
